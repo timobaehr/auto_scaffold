@@ -15,7 +15,7 @@ class AppScaffold extends StatelessWidget {
     required this.currentIndex,
     required this.onPageSelected,
     this.appBar,
-    this.tabbarEnabled = false,
+    this.tabBarDisabled = false,
     this.floatingActionButton
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class AppScaffold extends StatelessWidget {
 
   final FloatingActionButton? floatingActionButton;
 
-  final bool tabbarEnabled;
+  final bool tabBarDisabled;
 
   final String? pathToAppIcon;
   final Widget headerText;
@@ -36,8 +36,7 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    assert(!tabbarEnabled || (tabbarEnabled && navigationItems.length > 1),
-      'A bottom navigation bar requires at least 2 pages but only ${navigationItems.length} is given.');
+    final tabBarEnabled = !tabBarDisabled && navigationItems.length > 1 && navigationItems.length < 6;
 
     final bool displayMobileLayout = MediaQuery.of(context).size.width < 600;
     final AppBar? modifiedAppBar = appBar == null ? null : AppBar(
@@ -59,7 +58,7 @@ class AppScaffold extends StatelessWidget {
         Expanded(
           child: Scaffold(
             appBar: modifiedAppBar,
-            drawer: displayMobileLayout && !tabbarEnabled
+            drawer: displayMobileLayout && !tabBarEnabled
                 ? AppDrawer(
                     pathToAppIcon: pathToAppIcon,
                     headerText: headerText,
@@ -69,7 +68,7 @@ class AppScaffold extends StatelessWidget {
                 : null,
             body: navigationItems[currentIndex].body,
             floatingActionButton: floatingActionButton,
-            bottomNavigationBar: (displayMobileLayout && tabbarEnabled) ? BottomNavigationBar(
+            bottomNavigationBar: (displayMobileLayout && tabBarEnabled) ? BottomNavigationBar(
                   currentIndex: currentIndex,
                   onTap: onPageSelected,
                   type: BottomNavigationBarType.fixed,
