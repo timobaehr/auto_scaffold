@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:collapsable_app_scaffold/collapsable_app_scaffold.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Example()));
@@ -9,9 +8,9 @@ class Example extends StatefulWidget {
   _ExampleState createState() => _ExampleState();
 }
 
-class _ExampleState extends VisibilityAwareState<Example> {
+class _ExampleState extends State<Example> {
 
-  _ExampleState(): super(debugPrintsEnabled: true);
+  _ExampleState(): super();
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +53,5 @@ class _ExampleState extends VisibilityAwareState<Example> {
       alignment: Alignment.centerLeft,
       child: Text('► $item'),
     );
-  }
-
-  @override
-  void onVisibilityChanged(WidgetVisibility visibility) {
-    switch(visibility) {
-      case WidgetVisibility.VISIBLE:
-        // Like Android's Activity.onResume()
-        break;
-      case WidgetVisibility.INVISIBLE:
-        // Like Android's Activity.onPause()
-        break;
-      case WidgetVisibility.GONE:
-        // Like Android's Activity.onDestroy()
-        break;
-    }
-    super.onVisibilityChanged(visibility);
   }
 }
