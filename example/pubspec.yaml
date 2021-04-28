@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  collapsable_app_scaffold:
+  collapsible_app_scaffold:
     # When depending on this package from a real application you should use:
     #   collapsable_app_scaffold: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints

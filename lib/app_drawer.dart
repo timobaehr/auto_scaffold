@@ -1,5 +1,5 @@
-import 'package:collapsable_app_scaffold/app_scaffold.dart';
-import 'package:collapsable_app_scaffold/extensions.dart';
+import 'package:collapsible_app_scaffold/app_scaffold.dart';
+import 'package:collapsible_app_scaffold/extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'localization.dart';

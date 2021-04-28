@@ -1,5 +1,5 @@
-import 'package:collapsable_app_scaffold/app_scaffold.dart';
-import 'package:collapsable_app_scaffold/navigation_item.dart';
+import 'package:collapsible_app_scaffold/app_scaffold.dart';
+import 'package:collapsible_app_scaffold/navigation_item.dart';
 import 'package:flutter/material.dart';
 
 void main() =>
@@ -14,12 +14,18 @@ class _ExampleState extends State<Example> {
 
   _ExampleState(): super();
 
+  int _selectedPageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      onPageSelected: (int pageIndex) {},
+      onPageSelected: (int pageIndex) {
+        setState(() {
+          _selectedPageIndex = pageIndex;
+        });
+      },
       headerText: Text('HeaderText'),
-      currentIndex: 0,
+      currentIndex: _selectedPageIndex,
       navigationItems: [
         NavigationItem(
           name: 'Home',
