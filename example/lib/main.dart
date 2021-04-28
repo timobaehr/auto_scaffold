@@ -1,3 +1,5 @@
+import 'package:collapsable_app_scaffold/app_scaffold.dart';
+import 'package:collapsable_app_scaffold/navigation_item.dart';
 import 'package:flutter/material.dart';
 
 void main() =>
@@ -14,25 +16,40 @@ class _ExampleState extends State<Example> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
+      onPageSelected: (int pageIndex) {},
+      headerText: Text('HeaderText'),
+      currentIndex: 0,
+      navigationItems: [
+        NavigationItem(
+          name: 'Home',
+          iconData: Icons.home,
+          route: '/',
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Text('Welcome to collapsable_app_scaffold example app.',
+                      style: Theme.of(context).textTheme.headline5),
+                  _headline('Features'),
+                  _item('...'),
+                ],
+              ),
+            ),
+          )
+        ),
+        NavigationItem(
+            name: 'Settings',
+            iconData: Icons.settings,
+            route: '/settings',
+            body: Text('Settings goes here',
+                style: Theme.of(context).textTheme.headline5),
+        )
+      ],
       appBar: AppBar(
         brightness: Brightness.dark,
         title: Text('Example app'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Text('Welcome to visibility_aware_state example app.',
-                style: Theme.of(context).textTheme.headline5),
-              _headline('Features'),
-              _item('Detect when a widget becomes invisible or visible'),
-              _item('Check if the widget is currently visible using `bool isVisible()`'),
-              _item('Close the current screen via `finish()` (Android style)'),
-            ],
-          ),
-        ),
       ),
     );
   }

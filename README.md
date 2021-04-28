@@ -1,6 +1,6 @@
 # collapsable_app_scaffold
 
-...
+Use `AppScaffold` instead of `Scaffold`.
 
 ## Features
 

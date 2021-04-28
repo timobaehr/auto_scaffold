@@ -15,7 +15,7 @@ class AppScaffold extends StatelessWidget {
     required this.currentIndex,
     required this.onPageSelected,
     this.appBar,
-    this.tabbarEnabled = true,
+    this.tabbarEnabled = false,
     this.floatingActionButton
   }) : super(key: key);
 
@@ -36,6 +36,9 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    assert(!tabbarEnabled || (tabbarEnabled && navigationItems.length > 1),
+      'A bottom navigation bar requires at least 2 pages but only ${navigationItems.length} is given.');
+
     final bool displayMobileLayout = MediaQuery.of(context).size.width < 600;
     final AppBar? modifiedAppBar = appBar == null ? null : AppBar(
       key: appBar?.key,
