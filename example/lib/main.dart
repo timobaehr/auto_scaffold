@@ -28,8 +28,8 @@ class _ExampleState extends State<Example> {
       drawerTitle: Text('Your App',
           style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)),
       backgroundColor: Colors.blue.shade50,
-      selectedNavigationItemColor: Colors.black,
-      unselectedNavigationItemColor: Colors.black54,
+      //selectedNavigationItemColor: Colors.red,
+      //unselectedNavigationItemColor: Colors.black54,
       onPageSelected: (int pageIndex) {
         setState(() {
           _selectedPageIndex = pageIndex;

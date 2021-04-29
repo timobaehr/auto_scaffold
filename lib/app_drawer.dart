@@ -118,6 +118,12 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
     }
   }
 
+  Color _itemColor(bool selected) {
+    return selected
+        ? widget.selectedNavigationItemColor ?? Theme.of(context).accentColor
+        : widget.unselectedNavigationItemColor ?? Theme.of(context).hintColor;
+  }
+
   List<Widget> _items(bool collapsed) {
     final List<Widget> result = [];
     if (Environment.isSmartphoneApp()) {
@@ -133,12 +139,14 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
         leading: Theme(
           data: ThemeData(
             iconTheme: IconThemeData(
-              color: widget.currentIndex == i ? widget.selectedNavigationItemColor : widget.unselectedNavigationItemColor
+              color: _itemColor(widget.currentIndex == i)
             )
           ),
           child: item.icon,
         ),
-        title: Text(collapsed ? '' : item.name, style: TextStyle(color: widget.currentIndex == i ? widget.selectedNavigationItemColor : widget.unselectedNavigationItemColor)),
+        title: Text(collapsed ? '' : item.name,
+            style: TextStyle(color: _itemColor(widget.currentIndex == i))
+        ),
         onTap: () async {
           /// Closes the drawer if applicable (which is only when it's not been displayed permanently) and navigates to the specified route
           /// In a mobile layout, the a modal drawer is used so we need to explicitly close it when the user selects a page to display
