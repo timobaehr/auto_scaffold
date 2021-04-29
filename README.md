@@ -25,8 +25,8 @@ dependencies:
 In your library add the following import:
 
 ```dart
-import 'package:collapsible_app_scaffold/app_scaffold.dart';
-import 'package:collapsible_app_scaffold/navigation_item.dart';
+import 'package:auto_scaffold/app_scaffold.dart';
+import 'package:auto_scaffold/navigation_item.dart';
 ```
 
 For help getting started with Flutter, view the online [documentation](https://flutter.io/).
@@ -93,5 +93,5 @@ class _ExampleState extends State<Example> {
 
 Feel free to contribute to this project.
 
-If you find a bug or want a feature, but don't know how to fix/implement it, please fill an [issue](https://github.com/timobaehr/collapsable_app_scaffold/issues).
-If you fixed a bug or implemented a new feature, please send a [pull request](https://github.com/timobaehr/collapsable_app_scaffold/pulls).
+If you find a bug or want a feature, but don't know how to fix/implement it, please fill an [issue](https://github.com/timobaehr/auto_scaffold/issues).
+If you fixed a bug or implemented a new feature, please send a [pull request](https://github.com/timobaehr/auto_scaffold/pulls).
