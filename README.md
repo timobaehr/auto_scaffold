@@ -55,7 +55,9 @@ class _ExampleState extends State<Example> {
       drawerLeading: Icon(Icons.favorite, color: Colors.red),
       drawerTitle: Text('Your App',
           style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)),
-      drawerBackgroundColor: Colors.black12,
+      backgroundColor: Colors.blue.shade50,
+      selectedNavigationItemColor: Colors.black,
+      unselectedNavigationItemColor: Colors.black54,
       onPageSelected: (int pageIndex) {
         setState(() {
           _selectedPageIndex = pageIndex;
@@ -70,13 +72,13 @@ class _ExampleState extends State<Example> {
       navigationItems: [
         NavigationItem(
           name: 'Home',
-          iconData: Icons.home,
+          iconData: Icon(Icons.home),
           route: '/',
           body: Text('Home')
         ),
         NavigationItem(
             name: 'Settings',
-            iconData: Icons.settings,
+            iconData: Icon(Icons.settings),
             route: '/settings',
             body: Text('Settings'),
         )

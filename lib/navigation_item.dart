@@ -5,7 +5,7 @@ class NavigationItem {
   NavigationItem({
     required this.route,
     required this.name,
-    required this.iconData,
+    required this.icon,
     required this.body
   });
 
@@ -13,7 +13,7 @@ class NavigationItem {
 
   final String name;
 
-  final IconData iconData;
+  final Widget icon;
 
   final Widget body;
 

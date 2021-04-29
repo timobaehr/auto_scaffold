@@ -11,7 +11,7 @@ class AutoScaffold extends StatelessWidget {
     Key? key,
     this.drawerLeading,
     this.drawerTitle,
-    this.drawerBackgroundColor,
+    this.backgroundColor,
     required this.navigationItems,
     required this.currentIndex,
     required this.onPageSelected,
@@ -20,6 +20,9 @@ class AutoScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.tooltipDecoration,
     this.tooltipTextStyle,
+    this.selectedNavigationItemColor,
+    this.unselectedNavigationItemColor,
+    this.selectedDrawerNavigationItemBackground,
   }) : super(key: key);
 
   final List<NavigationItem> navigationItems;
@@ -37,11 +40,17 @@ class AutoScaffold extends StatelessWidget {
 
   final AppBar? appBar;
 
-  final Color? drawerBackgroundColor;
+  final Color? backgroundColor;
 
   final Decoration? tooltipDecoration;
 
   final TextStyle? tooltipTextStyle;
+
+  final Color? selectedNavigationItemColor;
+
+  final Color? unselectedNavigationItemColor;
+
+  final Color? selectedDrawerNavigationItemBackground;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +73,12 @@ class AutoScaffold extends StatelessWidget {
             items: navigationItems,
             currentIndex: currentIndex,
             onPageSelected: onPageSelected,
-            backgroundColor: drawerBackgroundColor,
+            backgroundColor: backgroundColor,
             tooltipDecoration: tooltipDecoration,
             tooltipTextStyle: tooltipTextStyle,
+            selectedNavigationItemColor: selectedNavigationItemColor,
+            unselectedNavigationItemColor: unselectedNavigationItemColor,
+            selectedNavigationItemBackground: selectedDrawerNavigationItemBackground,
           ),
         Expanded(
           child: Scaffold(
@@ -78,10 +90,13 @@ class AutoScaffold extends StatelessWidget {
                     items: navigationItems,
                     currentIndex: currentIndex,
                     onPageSelected: onPageSelected,
-                    backgroundColor: drawerBackgroundColor,
+                    backgroundColor: backgroundColor,
                     tooltipDecoration: tooltipDecoration,
                     tooltipTextStyle: tooltipTextStyle,
-                  )
+                    selectedNavigationItemColor: selectedNavigationItemColor,
+                    unselectedNavigationItemColor: unselectedNavigationItemColor,
+                    selectedNavigationItemBackground: selectedDrawerNavigationItemBackground,
+                )
                 : null,
             body: navigationItems[currentIndex].body,
             floatingActionButton: floatingActionButton,
@@ -89,10 +104,13 @@ class AutoScaffold extends StatelessWidget {
                   currentIndex: currentIndex,
                   onTap: onPageSelected,
                   type: BottomNavigationBarType.fixed,
+                  backgroundColor: backgroundColor,
+                  selectedItemColor: selectedNavigationItemColor,
+                  unselectedItemColor: unselectedNavigationItemColor,
                   items: <BottomNavigationBarItem>[
                     for (NavigationItem item in navigationItems)
                       BottomNavigationBarItem(
-                        icon: Icon(item.iconData),
+                        icon: item.icon,
                         label: item.name,
                       )
                   ]

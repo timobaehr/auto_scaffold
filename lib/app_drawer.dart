@@ -19,6 +19,9 @@ class CollapsibleDrawer extends StatefulWidget {
     this.backgroundColor,
     this.tooltipDecoration,
     this.tooltipTextStyle,
+    this.selectedNavigationItemColor,
+    this.unselectedNavigationItemColor,
+    this.selectedNavigationItemBackground,
   }) : super(key: key);
 
   final Widget? leading;
@@ -38,6 +41,12 @@ class CollapsibleDrawer extends StatefulWidget {
   final Decoration? tooltipDecoration;
 
   final TextStyle? tooltipTextStyle;
+
+  final Color? selectedNavigationItemColor;
+
+  final Color? unselectedNavigationItemColor;
+
+  final Color? selectedNavigationItemBackground;
 
   @override
   _CollapsibleDrawerState createState() => _CollapsibleDrawerState();
@@ -87,8 +96,7 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
         color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
         child: Column(
           children: [
-            if (displayMobileLayout) list,
-            if (!displayMobileLayout) Expanded(child: list),
+            Expanded(child: list),
             if (!displayMobileLayout) ListTile(
               onTap: () => setState(() {
                 _collapsed = !_collapsed;
@@ -117,21 +125,31 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
         height: 16,
       ));
     }
+    final bool displayMobileLayout = MediaQuery.of(context).size.width < 600;
+
     for (int i = 0; i < widget.items.length; i++) {
       final item = widget.items[i];
       final listTile = ListTile(
-        leading: Icon(item.iconData),
-        title: Text(collapsed ? '' : item.name),
+        leading: Theme(
+          data: ThemeData(
+            iconTheme: IconThemeData(
+              color: widget.currentIndex == i ? widget.selectedNavigationItemColor : widget.unselectedNavigationItemColor
+            )
+          ),
+          child: item.icon,
+        ),
+        title: Text(collapsed ? '' : item.name, style: TextStyle(color: widget.currentIndex == i ? widget.selectedNavigationItemColor : widget.unselectedNavigationItemColor)),
         onTap: () async {
           /// Closes the drawer if applicable (which is only when it's not been displayed permanently) and navigates to the specified route
           /// In a mobile layout, the a modal drawer is used so we need to explicitly close it when the user selects a page to display
-          /*if (widget.permanentlyDisplay) {
+          if (displayMobileLayout) {
             Navigator.pop(context);
-          }*/
+          }
 
           widget.onPageSelected(i);
         },
         selected: widget.currentIndex == i,
+        selectedTileColor: widget.selectedNavigationItemBackground,
       );
       if (collapsed) {
         final tooltip = Tooltip(
