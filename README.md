@@ -1,6 +1,17 @@
 # auto_scaffold
 
-Use `AutoScaffold` instead of `Scaffold`.
+With increasing screen size a drawer becomes more common. On smartphones bottom navigation bars are
+often used. This plugin helps to automatically switch between those depending on the screen size.
+
+On small screens a bottom navigation bar can be used:
+![Bottom Navigation Bar](https://github.com/timobaehr/auto_scaffold/tree/master/example/screenshots/bottom_navigation_bar.png)
+
+On small screens a default drawer can be used (`tabBarDisabled: true`):
+![Drawer mobile](https://github.com/timobaehr/auto_scaffold/tree/master/example/screenshots/drawer_mobile.png)
+
+On large screens (like tablet or desktop) the drawer is collapsible and is not shown as overlay 
+above the content:
+![Drawer desktop](https://github.com/timobaehr/auto_scaffold/tree/master/example/screenshots/drawer_desktop.png)
 
 ## Features
 
@@ -13,6 +24,8 @@ Use `AutoScaffold` instead of `Scaffold`.
 ► Hide drawer leading if the drawer is collapsed
 
 ## Getting started
+
+Use `AutoScaffold` instead of `Scaffold`.
 
 In the `pubspec.yaml` of your flutter project, add the following dependency:
 

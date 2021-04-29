@@ -22,7 +22,7 @@ class _ExampleState extends State<Example> {
       appBar: AppBar(
         title: Text(_appBarTitle),
       ),
-      tabBarDisabled: true,
+      tabBarDisabled: false,
       drawerLeading: Icon(Icons.favorite, color: Colors.red),
       drawerTitle: Text('Your App',
           style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)),
