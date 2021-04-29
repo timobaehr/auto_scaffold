@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
+import 'package:universal_io/io.dart';
 
 String enumToString(dynamic enumValue) {
   assert(enumValue != null, 'The value should never be null.');
@@ -12,7 +11,6 @@ String enumToString(dynamic enumValue) {
 }
 
 class Environment {
-
   /// Whether the environment is of type
   /// [WebBrowser](https://en.wikipedia.org/wiki/Web_browser).
   static const bool isWebBrowser = kIsWeb;
@@ -27,6 +25,6 @@ class Environment {
 
   /// Whether the environment is of type
   /// [Android](https://en.wikipedia.org/wiki/Android_%28operating_system%29).
-  static bool isSmartphoneApp() => !isWebBrowser && (Platform.isAndroid || Platform.isIOS);
-
+  static bool isSmartphoneApp() =>
+      !isWebBrowser && (Platform.isAndroid || Platform.isIOS);
 }

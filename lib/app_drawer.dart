@@ -53,8 +53,9 @@ class CollapsibleDrawer extends StatefulWidget {
 }
 
 class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
-
   bool _collapsed = false;
+
+  static const double WIDTH_SELECTED_INDICATOR = 3;
 
   @override
   void initState() {
@@ -77,16 +78,15 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
                       child: Icon(Icons.android),
                     ),
                   ),*/
-        if (!_collapsed && (widget.leading != null || widget.title != null)) AppBar(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          leading: widget.leading,
-          title: widget.title,
-        ),
-        if (!_collapsed) Container(
-            color: Theme.of(context).colorScheme.background,
-            height: 1
-        ),
+        if (!_collapsed && (widget.leading != null || widget.title != null))
+          AppBar(
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            leading: widget.leading,
+            title: widget.title,
+          ),
+        if (!_collapsed)
+          Container(color: Theme.of(context).colorScheme.background, height: 1),
         ..._items(_collapsed)
       ],
     );
@@ -97,12 +97,15 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
         child: Column(
           children: [
             Expanded(child: list),
-            if (!displayMobileLayout) ListTile(
-              onTap: () => setState(() {
-                _collapsed = !_collapsed;
-              }),
-              leading: Icon(_collapsed ? Icons.arrow_forward_ios : Icons.arrow_back_ios),
-              title: Text(_collapsed ? '' : StringsCommon.collapse()))
+            if (!displayMobileLayout)
+              ListTile(
+                  onTap: () => setState(() {
+                        _collapsed = !_collapsed;
+                      }),
+                  leading: Icon(_collapsed
+                      ? Icons.arrow_forward_ios
+                      : Icons.arrow_back_ios),
+                  title: Text(_collapsed ? '' : StringsCommon.collapse()))
           ],
         ),
       ),
@@ -112,7 +115,10 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
       return drawer;
     } else {
       return SizedBox(
-        width: 57,
+        width: 57 +
+            (widget.selectedNavigationItemBackground != null
+                ? WIDTH_SELECTED_INDICATOR
+                : 0),
         child: drawer,
       );
     }
@@ -134,19 +140,16 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
     final bool displayMobileLayout = MediaQuery.of(context).size.width < 600;
 
     for (int i = 0; i < widget.items.length; i++) {
+      final selected = widget.currentIndex == i;
       final item = widget.items[i];
+      final leading = Theme(
+        data: ThemeData(iconTheme: IconThemeData(color: _itemColor(selected))),
+        child: item.icon,
+      );
       final listTile = ListTile(
-        leading: Theme(
-          data: ThemeData(
-            iconTheme: IconThemeData(
-              color: _itemColor(widget.currentIndex == i)
-            )
-          ),
-          child: item.icon,
-        ),
+        leading: leading,
         title: Text(collapsed ? '' : item.name,
-            style: TextStyle(color: _itemColor(widget.currentIndex == i))
-        ),
+            style: TextStyle(color: _itemColor(selected))),
         onTap: () async {
           /// Closes the drawer if applicable (which is only when it's not been displayed permanently) and navigates to the specified route
           /// In a mobile layout, the a modal drawer is used so we need to explicitly close it when the user selects a page to display
@@ -159,22 +162,45 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
         selected: widget.currentIndex == i,
         selectedTileColor: widget.selectedNavigationItemBackground,
       );
+
+      Widget entry = widget.selectedNavigationItemBackground != null
+          ? LayoutBuilder(builder: (context, constraints) {
+              const double width = WIDTH_SELECTED_INDICATOR;
+              return Row(
+                children: [
+                  Container(
+                      width: width,
+                      height: 48,
+                      color: selected ? _itemColor(true) : Colors.transparent),
+                  Container(
+                      width: constraints.maxWidth - width, child: listTile)
+                ],
+              );
+            })
+          : listTile;
+
       if (collapsed) {
-        final tooltip = Tooltip(
+        final wrapWithTooltip = Tooltip(
           message: item.name,
           verticalOffset: -16,
           margin: const EdgeInsets.only(left: 40),
-          decoration: widget.tooltipDecoration ?? BoxDecoration(
-            color: Theme.of(context).textTheme.caption?.color?.withOpacity(0.80),
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
-          ),
-          textStyle: widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
+          decoration: widget.tooltipDecoration ??
+              BoxDecoration(
+                color: Theme.of(context)
+                    .textTheme
+                    .caption
+                    ?.color
+                    ?.withOpacity(0.80),
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+              ),
+          textStyle:
+              widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
           preferBelow: true,
-          child: listTile,
+          child: entry,
         );
-        result.add(tooltip);
+        result.add(wrapWithTooltip);
       } else {
-        result.add(listTile);
+        result.add(entry);
       }
     }
     return result;

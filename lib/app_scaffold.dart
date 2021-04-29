@@ -54,22 +54,26 @@ class AutoScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tabBarEnabled = !tabBarDisabled && navigationItems.length > 1 && navigationItems.length < 6;
+    final tabBarEnabled = !tabBarDisabled &&
+        navigationItems.length > 1 &&
+        navigationItems.length < 6;
 
     final bool displayMobileLayout = MediaQuery.of(context).size.width < 600;
-    final AppBar? modifiedAppBar = appBar == null ? null : AppBar(
-      key: appBar?.key,
-      automaticallyImplyLeading: displayMobileLayout,
-      title: appBar?.title,
-      actions: appBar?.actions ?? [],
-      backgroundColor: appBar?.backgroundColor,
-    );
+    final AppBar? modifiedAppBar = appBar == null
+        ? null
+        : AppBar(
+            key: appBar?.key,
+            automaticallyImplyLeading: displayMobileLayout,
+            title: appBar?.title,
+            actions: appBar?.actions ?? [],
+            backgroundColor: appBar?.backgroundColor,
+          );
     return Row(
       children: [
         if (!displayMobileLayout)
           CollapsibleDrawer(
             leading: drawerLeading,
-              title: drawerTitle,
+            title: drawerTitle,
             items: navigationItems,
             currentIndex: currentIndex,
             onPageSelected: onPageSelected,
@@ -78,44 +82,47 @@ class AutoScaffold extends StatelessWidget {
             tooltipTextStyle: tooltipTextStyle,
             selectedNavigationItemColor: selectedNavigationItemColor,
             unselectedNavigationItemColor: unselectedNavigationItemColor,
-            selectedNavigationItemBackground: selectedDrawerNavigationItemBackground,
+            selectedNavigationItemBackground:
+                selectedDrawerNavigationItemBackground,
           ),
         Expanded(
           child: Scaffold(
-            appBar: modifiedAppBar,
-            drawer: displayMobileLayout && !tabBarEnabled
-                ? CollapsibleDrawer(
-                    leading: drawerLeading,
-                    title: drawerTitle,
-                    items: navigationItems,
-                    currentIndex: currentIndex,
-                    onPageSelected: onPageSelected,
-                    backgroundColor: backgroundColor,
-                    tooltipDecoration: tooltipDecoration,
-                    tooltipTextStyle: tooltipTextStyle,
-                    selectedNavigationItemColor: selectedNavigationItemColor,
-                    unselectedNavigationItemColor: unselectedNavigationItemColor,
-                    selectedNavigationItemBackground: selectedDrawerNavigationItemBackground,
-                )
-                : null,
-            body: navigationItems[currentIndex].body,
-            floatingActionButton: floatingActionButton,
-            bottomNavigationBar: (displayMobileLayout && tabBarEnabled) ? BottomNavigationBar(
-                  currentIndex: currentIndex,
-                  onTap: onPageSelected,
-                  type: BottomNavigationBarType.fixed,
-                  backgroundColor: backgroundColor,
-                  selectedItemColor: selectedNavigationItemColor,
-                  unselectedItemColor: unselectedNavigationItemColor,
-                  items: <BottomNavigationBarItem>[
-                    for (NavigationItem item in navigationItems)
-                      BottomNavigationBarItem(
-                        icon: item.icon,
-                        label: item.name,
-                      )
-                  ]
-            ) : null
-          ),
+              appBar: modifiedAppBar,
+              drawer: displayMobileLayout && !tabBarEnabled
+                  ? CollapsibleDrawer(
+                      leading: drawerLeading,
+                      title: drawerTitle,
+                      items: navigationItems,
+                      currentIndex: currentIndex,
+                      onPageSelected: onPageSelected,
+                      backgroundColor: backgroundColor,
+                      tooltipDecoration: tooltipDecoration,
+                      tooltipTextStyle: tooltipTextStyle,
+                      selectedNavigationItemColor: selectedNavigationItemColor,
+                      unselectedNavigationItemColor:
+                          unselectedNavigationItemColor,
+                      selectedNavigationItemBackground:
+                          selectedDrawerNavigationItemBackground,
+                    )
+                  : null,
+              body: navigationItems[currentIndex].body,
+              floatingActionButton: floatingActionButton,
+              bottomNavigationBar: (displayMobileLayout && tabBarEnabled)
+                  ? BottomNavigationBar(
+                      currentIndex: currentIndex,
+                      onTap: onPageSelected,
+                      type: BottomNavigationBarType.fixed,
+                      backgroundColor: backgroundColor,
+                      selectedItemColor: selectedNavigationItemColor,
+                      unselectedItemColor: unselectedNavigationItemColor,
+                      items: <BottomNavigationBarItem>[
+                          for (NavigationItem item in navigationItems)
+                            BottomNavigationBarItem(
+                              icon: item.icon,
+                              label: item.name,
+                            )
+                        ])
+                  : null),
         )
       ],
     );

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NavigationItem {
-
-  NavigationItem({
-    required this.route,
-    required this.name,
-    required this.icon,
-    required this.body
-  });
+  NavigationItem(
+      {required this.route,
+      required this.name,
+      required this.icon,
+      required this.body});
 
   final String route;
 
@@ -16,5 +14,4 @@ class NavigationItem {
   final Widget icon;
 
   final Widget body;
-
 }

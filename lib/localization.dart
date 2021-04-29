@@ -6,7 +6,6 @@ String locale = ui.window.locale?.languageCode ?? 'en';
 
 // ignore: avoid_classes_with_only_static_members
 class StringsCommon {
-
   static String collapse() {
     switch (locale) {
       case 'de':
@@ -25,5 +24,4 @@ class StringsCommon {
         return 'Collapse';
     }
   }
-
 }
