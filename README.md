@@ -1,4 +1,4 @@
-# collapsable_app_scaffold
+# collapsible_app_scaffold
 
 Use `AppScaffold` instead of `Scaffold`.
 
@@ -13,13 +13,13 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  collapsable_app_scaffold: <latest_version>
+  collapsible_app_scaffold: <latest_version>
 ```
 
 In your library add the following import:
 
 ```dart
-import 'package:collapsable_app_scaffold/collapsable_app_scaffold.dart';
+import 'package:collapsible_app_scaffold/collapsible_app_scaffold.dart';
 ```
 
 For help getting started with Flutter, view the online [documentation](https://flutter.io/).
