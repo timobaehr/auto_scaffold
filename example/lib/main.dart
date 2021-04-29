@@ -15,16 +15,28 @@ class _ExampleState extends State<Example> {
   _ExampleState(): super();
 
   int _selectedPageIndex = 0;
+  String appBarTitle = 'Home';
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      appBar: AppBar(
+        title: Text(appBarTitle),
+      ),
+      tabBarDisabled: false,
+      drawerLeading: Icon(Icons.favorite, color: Colors.red),
+      drawerTitle: Text('Your App',
+          style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)),
       onPageSelected: (int pageIndex) {
         setState(() {
           _selectedPageIndex = pageIndex;
+
+          switch (_selectedPageIndex) {
+            case 0: appBarTitle = 'Home'; break;
+            case 1: appBarTitle = 'Settings'; break;
+          }
         });
       },
-      headerText: Text('HeaderText'),
       currentIndex: _selectedPageIndex,
       navigationItems: [
         NavigationItem(
@@ -53,10 +65,6 @@ class _ExampleState extends State<Example> {
                 style: Theme.of(context).textTheme.headline5),
         )
       ],
-      appBar: AppBar(
-        brightness: Brightness.dark,
-        title: Text('Example app'),
-      ),
     );
   }
 

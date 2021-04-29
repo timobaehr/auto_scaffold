@@ -7,19 +7,20 @@ import 'navigation_item.dart';
 
 /// The navigation drawer for the app.
 /// This listens to changes in the route to update which page is currently been shown
-class AppDrawer extends StatefulWidget {
-  const AppDrawer({
+class CollapsibleDrawer extends StatefulWidget {
+  const CollapsibleDrawer({
     Key? key,
-    this.pathToAppIcon,
-    required this.headerText,
+    this.leading,
+    this.title,
     required this.items,
     required this.currentIndex,
     required this.onPageSelected,
+    this.defaultCollapsed = false
   }) : super(key: key);
 
-  final String? pathToAppIcon;
+  final Widget? leading;
 
-  final Widget headerText;
+  final Widget? title;
 
   final List<NavigationItem> items;
 
@@ -27,13 +28,21 @@ class AppDrawer extends StatefulWidget {
 
   final OnPageSelected onPageSelected;
 
+  final bool defaultCollapsed;
+
   @override
-  _AppDrawerState createState() => _AppDrawerState();
+  _CollapsibleDrawerState createState() => _CollapsibleDrawerState();
 }
 
-class _AppDrawerState extends State<AppDrawer> {
+class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
-  bool collapsed = true;
+  bool _collapsed = false;
+
+  @override
+  void initState() {
+    _collapsed = widget.defaultCollapsed;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,34 +62,32 @@ class _AppDrawerState extends State<AppDrawer> {
                       child: Icon(Icons.android),
                     ),
                   ),*/
-                  if (!collapsed) AppBar(
+                  if (!_collapsed && (widget.leading != null || widget.title != null)) AppBar(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
-                    leading: (widget.pathToAppIcon == null)
-                        ? null
-                        : Image.asset(widget.pathToAppIcon!),
-                    title: widget.headerText,
+                    leading: widget.leading,
+                    title: widget.title,
                   ),
-                  if (!collapsed) Container(
+                  if (!_collapsed) Container(
                       color: Theme.of(context).colorScheme.background,
                       height: 1
                   ),
-                  ..._items(collapsed)
+                  ..._items(_collapsed)
                 ],
               ),
             ),
             ListTile(
               onTap: () => setState(() {
-                collapsed = !collapsed;
+                _collapsed = !_collapsed;
               }),
-              leading: Icon(collapsed ? Icons.arrow_forward_ios : Icons.arrow_back_ios),
-              title: Text(collapsed ? '' : StringsCommon.collapse()))
+              leading: Icon(_collapsed ? Icons.arrow_forward_ios : Icons.arrow_back_ios),
+              title: Text(_collapsed ? '' : StringsCommon.collapse()))
           ],
         ),
       ),
     );
 
-    if (!collapsed) {
+    if (!_collapsed) {
       return drawer;
     } else {
       return SizedBox(

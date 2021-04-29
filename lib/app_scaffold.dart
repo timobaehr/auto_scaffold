@@ -9,8 +9,8 @@ typedef OnPageSelected = void Function(int newIndex);
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
     Key? key,
-    this.pathToAppIcon,
-    required this.headerText,
+    this.drawerLeading,
+    this.drawerTitle,
     required this.navigationItems,
     required this.currentIndex,
     required this.onPageSelected,
@@ -29,8 +29,8 @@ class AppScaffold extends StatelessWidget {
 
   final bool tabBarDisabled;
 
-  final String? pathToAppIcon;
-  final Widget headerText;
+  final Widget? drawerLeading;
+  final Widget? drawerTitle;
 
   final AppBar? appBar;
 
@@ -44,14 +44,14 @@ class AppScaffold extends StatelessWidget {
       automaticallyImplyLeading: displayMobileLayout,
       title: appBar?.title,
       actions: appBar?.actions ?? [],
-      backgroundColor: displayMobileLayout ? Colors.orange : appBar?.backgroundColor,
+      backgroundColor: appBar?.backgroundColor,
     );
     return Row(
       children: [
         if (!displayMobileLayout)
-          AppDrawer(
-            pathToAppIcon: pathToAppIcon,
-            headerText: headerText,
+          CollapsibleDrawer(
+            leading: drawerLeading,
+              title: drawerTitle,
             items: navigationItems,
             currentIndex: currentIndex,
             onPageSelected: onPageSelected),
@@ -59,9 +59,9 @@ class AppScaffold extends StatelessWidget {
           child: Scaffold(
             appBar: modifiedAppBar,
             drawer: displayMobileLayout && !tabBarEnabled
-                ? AppDrawer(
-                    pathToAppIcon: pathToAppIcon,
-                    headerText: headerText,
+                ? CollapsibleDrawer(
+                    leading: drawerLeading,
+                    title: drawerTitle,
                     items: navigationItems,
                     currentIndex: currentIndex,
                     onPageSelected: onPageSelected)
