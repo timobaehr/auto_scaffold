@@ -1,8 +1,7 @@
 import 'dart:ui' as ui;
 
 // null_aware_operator is required for Flutter web!
-// ignore: invalid_null_aware_operator
-String locale = ui.window.locale?.languageCode ?? 'en';
+String locale = ui.window.locale!.languageCode;
 
 // ignore: avoid_classes_with_only_static_members
 class StringsCommon {

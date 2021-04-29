@@ -1,6 +1,6 @@
 name: auto_scaffold
 description: Automatically switch between a bottom tab bar and a left drawer
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/timobaehr/auto_scaffold
 
 environment:
@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  universal_io: ^2.0.4
 
 dev_dependencies:
   flutter_test:

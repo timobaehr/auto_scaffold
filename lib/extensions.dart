@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
-import 'package:universal_io/io.dart';
 
 String enumToString(dynamic enumValue) {
   assert(enumValue != null, 'The value should never be null.');
