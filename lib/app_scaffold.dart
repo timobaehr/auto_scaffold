@@ -6,17 +6,20 @@ typedef OnPageSelected = void Function(int newIndex);
 
 /// A responsive scaffold for our application.
 /// Displays the navigation drawer alongside the [Scaffold] if the screen/window size is large enough
-class AppScaffold extends StatelessWidget {
-  const AppScaffold({
+class AutoScaffold extends StatelessWidget {
+  const AutoScaffold({
     Key? key,
     this.drawerLeading,
     this.drawerTitle,
+    this.drawerBackgroundColor,
     required this.navigationItems,
     required this.currentIndex,
     required this.onPageSelected,
     this.appBar,
     this.tabBarDisabled = false,
-    this.floatingActionButton
+    this.floatingActionButton,
+    this.tooltipDecoration,
+    this.tooltipTextStyle,
   }) : super(key: key);
 
   final List<NavigationItem> navigationItems;
@@ -33,6 +36,12 @@ class AppScaffold extends StatelessWidget {
   final Widget? drawerTitle;
 
   final AppBar? appBar;
+
+  final Color? drawerBackgroundColor;
+
+  final Decoration? tooltipDecoration;
+
+  final TextStyle? tooltipTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +63,11 @@ class AppScaffold extends StatelessWidget {
               title: drawerTitle,
             items: navigationItems,
             currentIndex: currentIndex,
-            onPageSelected: onPageSelected),
+            onPageSelected: onPageSelected,
+            backgroundColor: drawerBackgroundColor,
+            tooltipDecoration: tooltipDecoration,
+            tooltipTextStyle: tooltipTextStyle,
+          ),
         Expanded(
           child: Scaffold(
             appBar: modifiedAppBar,
@@ -64,7 +77,11 @@ class AppScaffold extends StatelessWidget {
                     title: drawerTitle,
                     items: navigationItems,
                     currentIndex: currentIndex,
-                    onPageSelected: onPageSelected)
+                    onPageSelected: onPageSelected,
+                    backgroundColor: drawerBackgroundColor,
+                    tooltipDecoration: tooltipDecoration,
+                    tooltipTextStyle: tooltipTextStyle,
+                  )
                 : null,
             body: navigationItems[currentIndex].body,
             floatingActionButton: floatingActionButton,

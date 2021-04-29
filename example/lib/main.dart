@@ -15,25 +15,26 @@ class _ExampleState extends State<Example> {
   _ExampleState(): super();
 
   int _selectedPageIndex = 0;
-  String appBarTitle = 'Home';
+  String _appBarTitle = 'Home';
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return AutoScaffold(
       appBar: AppBar(
-        title: Text(appBarTitle),
+        title: Text(_appBarTitle),
       ),
-      tabBarDisabled: false,
+      tabBarDisabled: true,
       drawerLeading: Icon(Icons.favorite, color: Colors.red),
       drawerTitle: Text('Your App',
           style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)),
+      drawerBackgroundColor: Colors.black12,
       onPageSelected: (int pageIndex) {
         setState(() {
           _selectedPageIndex = pageIndex;
 
           switch (_selectedPageIndex) {
-            case 0: appBarTitle = 'Home'; break;
-            case 1: appBarTitle = 'Settings'; break;
+            case 0: _appBarTitle = 'Home'; break;
+            case 1: _appBarTitle = 'Settings'; break;
           }
         });
       },
@@ -48,10 +49,13 @@ class _ExampleState extends State<Example> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Text('Welcome to collapsable_app_scaffold example app.',
+                  Text('Welcome to collapsible_app_scaffold example app.',
                       style: Theme.of(context).textTheme.headline5),
                   _headline('Features'),
-                  _item('...'),
+                  _item('Automatically switch between collapsible app drawer (position left) and bottom navigation bar depending on screen width'),
+                  _item('Disable bottom navigation tab bar on small devices and then use regular drawer instead (without collapse button)'),
+                  _item('Show tooltips if the drawer is collapsed on mouse hover on Desktop'),
+                  _item('Hide drawer leading if the drawer is collapsed'),
                 ],
               ),
             ),
@@ -80,9 +84,12 @@ class _ExampleState extends State<Example> {
   }
 
   Widget _item(String item) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text('► $item'),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text('► $item'),
+      ),
     );
   }
 }

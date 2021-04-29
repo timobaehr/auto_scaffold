@@ -15,7 +15,10 @@ class CollapsibleDrawer extends StatefulWidget {
     required this.items,
     required this.currentIndex,
     required this.onPageSelected,
-    this.defaultCollapsed = false
+    this.defaultCollapsed = false,
+    this.backgroundColor,
+    this.tooltipDecoration,
+    this.tooltipTextStyle,
   }) : super(key: key);
 
   final Widget? leading;
@@ -29,6 +32,12 @@ class CollapsibleDrawer extends StatefulWidget {
   final OnPageSelected onPageSelected;
 
   final bool defaultCollapsed;
+
+  final Color? backgroundColor;
+
+  final Decoration? tooltipDecoration;
+
+  final TextStyle? tooltipTextStyle;
 
   @override
   _CollapsibleDrawerState createState() => _CollapsibleDrawerState();
@@ -46,37 +55,41 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final drawer = Drawer(
-      child: Container(
-        color: Theme.of(context).colorScheme.surface,
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  /*const UserAccountsDrawerHeader(
+    /// the collapse button should not be shown at bottom of regular drawer
+    final bool displayMobileLayout = MediaQuery.of(context).size.width < 600;
+
+    final list = ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        /*const UserAccountsDrawerHeader(
                     accountName: Text('User'),
                     accountEmail: Text('user@email.com'),
                     currentAccountPicture: CircleAvatar(
                       child: Icon(Icons.android),
                     ),
                   ),*/
-                  if (!_collapsed && (widget.leading != null || widget.title != null)) AppBar(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    leading: widget.leading,
-                    title: widget.title,
-                  ),
-                  if (!_collapsed) Container(
-                      color: Theme.of(context).colorScheme.background,
-                      height: 1
-                  ),
-                  ..._items(_collapsed)
-                ],
-              ),
-            ),
-            ListTile(
+        if (!_collapsed && (widget.leading != null || widget.title != null)) AppBar(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          leading: widget.leading,
+          title: widget.title,
+        ),
+        if (!_collapsed) Container(
+            color: Theme.of(context).colorScheme.background,
+            height: 1
+        ),
+        ..._items(_collapsed)
+      ],
+    );
+
+    final drawer = Drawer(
+      child: Container(
+        color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+        child: Column(
+          children: [
+            if (displayMobileLayout) list,
+            if (!displayMobileLayout) Expanded(child: list),
+            if (!displayMobileLayout) ListTile(
               onTap: () => setState(() {
                 _collapsed = !_collapsed;
               }),
@@ -125,11 +138,11 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
           message: item.name,
           verticalOffset: -16,
           margin: const EdgeInsets.only(left: 40),
-          decoration: BoxDecoration(
+          decoration: widget.tooltipDecoration ?? BoxDecoration(
             color: Theme.of(context).textTheme.caption?.color?.withOpacity(0.80),
             borderRadius: const BorderRadius.all(Radius.circular(4)),
           ),
-          textStyle: const TextStyle(color: Colors.white),
+          textStyle: widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
           preferBelow: true,
           child: listTile,
         );

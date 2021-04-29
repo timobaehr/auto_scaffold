@@ -1,10 +1,16 @@
 # collapsible_app_scaffold
 
-Use `AppScaffold` instead of `Scaffold`.
+Use `AutoScaffold` instead of `Scaffold`.
 
 ## Features
 
-...
+► Automatically switch between collapsible app drawer (position left) and bottom navigation bar depending on screen width
+
+► Disable bottom navigation tab bar on small devices and then use regular drawer instead (without collapse button)
+
+► Show tooltips if the drawer is collapsed on mouse hover on Desktop
+
+► Hide drawer leading if the drawer is collapsed
 
 ## Getting started
 
@@ -27,7 +33,57 @@ For help getting started with Flutter, view the online [documentation](https://f
 ## Example
 
 ```dart
-// example goes here...
+class Example extends StatefulWidget {
+  @override
+  _ExampleState createState() => _ExampleState();
+}
+
+class _ExampleState extends State<Example> {
+
+  _ExampleState(): super();
+
+  int _selectedPageIndex = 0;
+  String _appBarTitle = 'Home';
+
+  @override
+  Widget build(BuildContext context) {
+    return AutoScaffold(
+      appBar: AppBar(
+        title: Text(_appBarTitle),
+      ),
+      tabBarDisabled: true,
+      drawerLeading: Icon(Icons.favorite, color: Colors.red),
+      drawerTitle: Text('Your App',
+          style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)),
+      drawerBackgroundColor: Colors.black12,
+      onPageSelected: (int pageIndex) {
+        setState(() {
+          _selectedPageIndex = pageIndex;
+
+          switch (_selectedPageIndex) {
+            case 0: _appBarTitle = 'Home'; break;
+            case 1: _appBarTitle = 'Settings'; break;
+          }
+        });
+      },
+      currentIndex: _selectedPageIndex,
+      navigationItems: [
+        NavigationItem(
+          name: 'Home',
+          iconData: Icons.home,
+          route: '/',
+          body: Text('Home')
+        ),
+        NavigationItem(
+            name: 'Settings',
+            iconData: Icons.settings,
+            route: '/settings',
+            body: Text('Settings'),
+        )
+      ],
+    );
+  }
+}
 ```
 
 ## Contributions
