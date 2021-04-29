@@ -1,5 +1,5 @@
-import 'package:collapsible_app_scaffold/app_drawer.dart';
-import 'package:collapsible_app_scaffold/navigation_item.dart';
+import 'package:auto_scaffold/app_drawer.dart';
+import 'package:auto_scaffold/navigation_item.dart';
 import 'package:flutter/material.dart';
 
 typedef OnPageSelected = void Function(int newIndex);

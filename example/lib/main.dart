@@ -1,5 +1,5 @@
-import 'package:collapsible_app_scaffold/app_scaffold.dart';
-import 'package:collapsible_app_scaffold/navigation_item.dart';
+import 'package:auto_scaffold/app_scaffold.dart';
+import 'package:auto_scaffold/navigation_item.dart';
 import 'package:flutter/material.dart';
 
 void main() =>

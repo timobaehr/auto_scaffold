@@ -1,4 +1,4 @@
-# collapsible_app_scaffold
+# auto_scaffold
 
 Use `AutoScaffold` instead of `Scaffold`.
 
@@ -19,13 +19,14 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  collapsible_app_scaffold: <latest_version>
+  auto_scaffold: <latest_version>
 ```
 
 In your library add the following import:
 
 ```dart
-import 'package:collapsible_app_scaffold/collapsible_app_scaffold.dart';
+import 'package:collapsible_app_scaffold/app_scaffold.dart';
+import 'package:collapsible_app_scaffold/navigation_item.dart';
 ```
 
 For help getting started with Flutter, view the online [documentation](https://flutter.io/).

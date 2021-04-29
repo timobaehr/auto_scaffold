@@ -1,7 +1,7 @@
-name: collapsible_app_scaffold
-description: collapsible_app_scaffold
+name: auto_scaffold
+description: auto_scaffold
 version: 1.0.0
-homepage: https://github.com/timobaehr/collapsable_app_scaffold
+homepage: https://github.com/timobaehr/auto_scaffold
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
