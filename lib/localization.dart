@@ -1,7 +1,14 @@
 import 'dart:ui' as ui;
 
-// null_aware_operator is required for Flutter web!
-String locale = ui.window.locale!.languageCode;
+import 'dart:ui';
+
+/*
+ * Unfortunately for Flutter Web we have to cheat here a bit to get no warnings.
+ * null-aware operation '!' has type 'bool' which excludes null flutter web ui.window.locale
+ */
+const bool _stupid = false;
+final Locale? _tempLocale = _stupid ? null : ui.window.locale;
+final String locale = _tempLocale?.languageCode ?? 'en';
 
 // ignore: avoid_classes_with_only_static_members
 class StringsCommon {

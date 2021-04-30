@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.4] - 30.04.2021
+
+* Remove build warning (caused by Flutter Web and nullable Locale)
+
 ## [1.0.3] - 29.04.2021
 
 * Undo (official) Flutter web compatibility for analyzer because otherwise import of latest version 
