@@ -1,5 +1,5 @@
-import 'package:auto_scaffold/app_scaffold.dart';
-import 'package:auto_scaffold/extensions.dart';
+import 'package:auto_scaffold/src/app_scaffold.dart';
+import 'package:auto_scaffold/src/extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'localization.dart';
@@ -22,6 +22,7 @@ class CollapsibleDrawer extends StatefulWidget {
     this.selectedNavigationItemColor,
     this.unselectedNavigationItemColor,
     this.selectedNavigationItemBackground,
+    this.collapseStringResource,
   }) : super(key: key);
 
   final Widget? leading;
@@ -47,6 +48,8 @@ class CollapsibleDrawer extends StatefulWidget {
   final Color? unselectedNavigationItemColor;
 
   final Color? selectedNavigationItemBackground;
+
+  final String? collapseStringResource;
 
   @override
   _CollapsibleDrawerState createState() => _CollapsibleDrawerState();
@@ -105,7 +108,10 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
                   leading: Icon(_collapsed
                       ? Icons.arrow_forward_ios
                       : Icons.arrow_back_ios),
-                  title: Text(_collapsed ? '' : StringsCommon.collapse()))
+                  title: Text(_collapsed
+                      ? ''
+                      : widget.collapseStringResource ??
+                          StringsCommon.collapse()))
           ],
         ),
       ),
@@ -126,7 +132,8 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
   Color _itemColor(bool selected) {
     return selected
-        ? widget.selectedNavigationItemColor ?? Theme.of(context).accentColor
+        ? widget.selectedNavigationItemColor ??
+            Theme.of(context).colorScheme.secondary
         : widget.unselectedNavigationItemColor ?? Theme.of(context).hintColor;
   }
 
@@ -188,7 +195,7 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
               BoxDecoration(
                 color: Theme.of(context)
                     .textTheme
-                    .caption
+                    .bodySmall
                     ?.color
                     ?.withOpacity(0.80),
                 borderRadius: const BorderRadius.all(Radius.circular(4)),

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0] - 12.05.2023
+
+* Provide more API dartdoc documentation
+* Make library compatible with Dart v3.x
+* Pass static analysis: Resolve deprecation errors
+* Do not expose internal classes just relevant inside this package
+
 ## [1.0.4] - 30.04.2021
 
 * Remove build warning (caused by Flutter Web and nullable Locale)

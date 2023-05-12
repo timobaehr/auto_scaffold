@@ -1,5 +1,4 @@
-import 'package:auto_scaffold/app_scaffold.dart';
-import 'package:auto_scaffold/navigation_item.dart';
+import 'package:auto_scaffold/auto_scaffold.dart';
 import 'package:flutter/material.dart';
 
 void main() =>
@@ -24,8 +23,10 @@ class _ExampleState extends State<Example> {
       ),
       tabBarDisabled: false,
       drawerLeading: Icon(Icons.favorite, color: Colors.red),
-      drawerTitle: Text('Your App',
-          style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)),
+      drawerTitle: Text(
+        'Your App',
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
       backgroundColor: Colors.blue.shade50,
       selectedNavigationItemColor: Colors.red,
       unselectedNavigationItemColor: Colors.black54,
@@ -56,7 +57,7 @@ class _ExampleState extends State<Example> {
                 child: Column(
                   children: [
                     Text('Welcome to collapsible_app_scaffold example app.',
-                        style: Theme.of(context).textTheme.headline5),
+                        style: Theme.of(context).textTheme.headlineSmall),
                     _headline('Features'),
                     _item(
                         'Automatically switch between collapsible app drawer (position left) and bottom navigation bar depending on screen width'),
@@ -74,7 +75,7 @@ class _ExampleState extends State<Example> {
           icon: Icon(Icons.settings),
           route: '/settings',
           body: Text('Settings goes here',
-              style: Theme.of(context).textTheme.headline5),
+              style: Theme.of(context).textTheme.headlineSmall),
         )
       ],
     );
