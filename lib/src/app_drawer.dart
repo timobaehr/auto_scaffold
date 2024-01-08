@@ -88,8 +88,7 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
             leading: widget.leading,
             title: widget.title,
           ),
-        if (!_collapsed)
-          Container(color: Theme.of(context).colorScheme.background, height: 1),
+        if (!_collapsed) Container(color: Theme.of(context).colorScheme.background, height: 1),
         ..._items(_collapsed)
       ],
     );
@@ -101,17 +100,23 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
           children: [
             Expanded(child: list),
             if (!displayMobileLayout)
-              ListTile(
+              if (!_collapsed)
+                ListTile(
+                    onTap: () => setState(() {
+                          _collapsed = true;
+                        }),
+                    leading: Icon(Icons.arrow_back_ios),
+                    title: Text(_collapsed ? '' : widget.collapseStringResource ?? StringsCommon.collapse()))
+              else
+                InkWell(
                   onTap: () => setState(() {
-                        _collapsed = !_collapsed;
-                      }),
-                  leading: Icon(_collapsed
-                      ? Icons.arrow_forward_ios
-                      : Icons.arrow_back_ios),
-                  title: Text(_collapsed
-                      ? ''
-                      : widget.collapseStringResource ??
-                          StringsCommon.collapse()))
+                    _collapsed = false;
+                  }),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Icon(Icons.arrow_forward_ios),
+                  ),
+                ),
           ],
         ),
       ),
@@ -121,10 +126,7 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
       return drawer;
     } else {
       return SizedBox(
-        width: 57 +
-            (widget.selectedNavigationItemBackground != null
-                ? WIDTH_SELECTED_INDICATOR
-                : 0),
+        width: 57 + (widget.selectedNavigationItemBackground != null ? WIDTH_SELECTED_INDICATOR : 0),
         child: drawer,
       );
     }
@@ -132,8 +134,7 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
   Color _itemColor(bool selected) {
     return selected
-        ? widget.selectedNavigationItemColor ??
-            Theme.of(context).colorScheme.secondary
+        ? widget.selectedNavigationItemColor ?? Theme.of(context).colorScheme.secondary
         : widget.unselectedNavigationItemColor ?? Theme.of(context).hintColor;
   }
 
@@ -153,34 +154,32 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
         data: ThemeData(iconTheme: IconThemeData(color: _itemColor(selected))),
         child: item.icon,
       );
-      final listTile = ListTile(
-        leading: leading,
-        title: Text(collapsed ? '' : item.name,
-            style: TextStyle(color: _itemColor(selected))),
-        onTap: () async {
-          /// Closes the drawer if applicable (which is only when it's not been displayed permanently) and navigates to the specified route
-          /// In a mobile layout, the a modal drawer is used so we need to explicitly close it when the user selects a page to display
-          if (displayMobileLayout) {
-            Navigator.pop(context);
-          }
+      final onTap = () async {
+        /// Closes the drawer if applicable (which is only when it's not been displayed permanently) and navigates to the specified route
+        /// In a mobile layout, the a modal drawer is used so we need to explicitly close it when the user selects a page to display
+        if (displayMobileLayout) {
+          Navigator.pop(context);
+        }
 
-          widget.onPageSelected(i);
-        },
-        selected: widget.currentIndex == i,
-        selectedTileColor: widget.selectedNavigationItemBackground,
-      );
+        widget.onPageSelected(i);
+      };
+      final listTile = _collapsed
+          ? InkWell(onTap: onTap, child: leading)
+          : ListTile(
+              leading: leading,
+              title: Text(collapsed ? '' : item.name, style: TextStyle(color: _itemColor(selected))),
+              onTap: onTap,
+              selected: widget.currentIndex == i,
+              selectedTileColor: widget.selectedNavigationItemBackground,
+            );
 
       Widget entry = widget.selectedNavigationItemBackground != null
           ? LayoutBuilder(builder: (context, constraints) {
               const double width = WIDTH_SELECTED_INDICATOR;
               return Row(
                 children: [
-                  Container(
-                      width: width,
-                      height: 48,
-                      color: selected ? _itemColor(true) : Colors.transparent),
-                  Container(
-                      width: constraints.maxWidth - width, child: listTile)
+                  Container(width: width, height: 48, color: selected ? _itemColor(true) : Colors.transparent),
+                  Container(width: constraints.maxWidth - width, child: listTile)
                 ],
               );
             })
@@ -193,15 +192,10 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
           margin: const EdgeInsets.only(left: 40),
           decoration: widget.tooltipDecoration ??
               BoxDecoration(
-                color: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.color
-                    ?.withOpacity(0.80),
+                color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.80),
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
               ),
-          textStyle:
-              widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
+          textStyle: widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
           preferBelow: true,
           child: entry,
         );

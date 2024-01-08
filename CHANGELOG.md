@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] - 08.01.2024
+
+* Fix: Collapsed menu should be rendered with latest Flutter version on Fold devices
+
 ## [1.1.0] - 12.05.2023
 
 * Provide more API dartdoc documentation
