@@ -60,6 +60,8 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
   static const double WIDTH_SELECTED_INDICATOR = 3;
 
+  static const tooltipsEnabled = false;
+
   @override
   void initState() {
     _collapsed = widget.defaultCollapsed;
@@ -185,20 +187,20 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
             })
           : listTile;
 
-      if (collapsed) {
+      if (collapsed && tooltipsEnabled) {
         final wrapWithTooltip = Tooltip(
-          message: item.name,
-          verticalOffset: -16,
-          margin: const EdgeInsets.only(left: 40),
-          decoration: widget.tooltipDecoration ??
-              BoxDecoration(
-                color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.80),
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-              ),
-          textStyle: widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
-          preferBelow: true,
-          child: entry,
-        );
+            message: item.name,
+            verticalOffset: -16,
+            margin: const EdgeInsets.only(left: 40),
+            decoration: widget.tooltipDecoration ??
+                BoxDecoration(
+                  color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.80),
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                ),
+            textStyle: widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
+            preferBelow: true,
+            child: entry,
+            o);
         result.add(wrapWithTooltip);
       } else {
         result.add(entry);

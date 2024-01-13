@@ -1,6 +1,6 @@
 name: auto_scaffold
 description: Automatically switch between a bottom tab bar and a left drawer
-version: 1.1.1
+version: 1.1.2
 homepage: https://github.com/timobaehr/auto_scaffold
 
 environment:
