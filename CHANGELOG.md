@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] - 13.01.2024
+
+* Collapsed not clickable, disable Tooltip for the first
+
 ## [1.1.1] - 08.01.2024
 
 * Fix: Collapsed menu should be rendered with latest Flutter version on Fold devices
