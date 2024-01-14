@@ -1,8 +1,14 @@
 # Changelog
 
+## [1.1.3] - 14.01.2024
+
+* Show tooltip again on hover
+* Fix: Use font color onInverseSurface from theme for tooltip text as default
+* Fix: Use color background from theme for drawer as default
+
 ## [1.1.2] - 13.01.2024
 
-* Collapsed not clickable, disable Tooltip for the first
+* Fix: Collapsed not clickable, disable Tooltip for the first
 
 ## [1.1.1] - 08.01.2024
 

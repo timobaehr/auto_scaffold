@@ -60,8 +60,6 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
   static const double WIDTH_SELECTED_INDICATOR = 3;
 
-  static const tooltipsEnabled = false;
-
   @override
   void initState() {
     _collapsed = widget.defaultCollapsed;
@@ -97,7 +95,7 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
     final drawer = Drawer(
       child: Container(
-        color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+        color: widget.backgroundColor ?? Theme.of(context).colorScheme.background,
         child: Column(
           children: [
             Expanded(child: list),
@@ -165,15 +163,14 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
 
         widget.onPageSelected(i);
       };
-      final listTile = _collapsed
-          ? InkWell(onTap: onTap, child: leading)
-          : ListTile(
-              leading: leading,
-              title: Text(collapsed ? '' : item.name, style: TextStyle(color: _itemColor(selected))),
-              onTap: onTap,
-              selected: widget.currentIndex == i,
-              selectedTileColor: widget.selectedNavigationItemBackground,
-            );
+      final isTileSelected = widget.currentIndex == i;
+      final listTile = ListTile(
+        leading: _collapsed ? null : leading,
+        title: _collapsed ? leading : Text(collapsed ? '' : item.name, style: TextStyle(color: _itemColor(selected))),
+        selected: isTileSelected,
+        onTap: isTileSelected ? null : onTap,
+        selectedTileColor: widget.selectedNavigationItemBackground,
+      );
 
       Widget entry = widget.selectedNavigationItemBackground != null
           ? LayoutBuilder(builder: (context, constraints) {
@@ -187,21 +184,20 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
             })
           : listTile;
 
-      if (collapsed && tooltipsEnabled) {
-        final wrapWithTooltip = Tooltip(
-            message: item.name,
-            verticalOffset: -16,
-            margin: const EdgeInsets.only(left: 40),
-            decoration: widget.tooltipDecoration ??
-                BoxDecoration(
-                  color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.80),
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                ),
-            textStyle: widget.tooltipTextStyle ?? const TextStyle(color: Colors.white),
-            preferBelow: true,
-            child: entry,
-            o);
-        result.add(wrapWithTooltip);
+      if (collapsed) {
+        final wrappedWithTooltip = Tooltip(
+          message: item.name,
+          preferBelow: false,
+          waitDuration: const Duration(milliseconds: 500),
+          decoration: widget.tooltipDecoration ??
+              BoxDecoration(
+                color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.80),
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+              ),
+          textStyle: widget.tooltipTextStyle ?? TextStyle(color: Theme.of(context).colorScheme.onInverseSurface),
+          child: entry,
+        );
+        result.add(wrappedWithTooltip);
       } else {
         result.add(entry);
       }
