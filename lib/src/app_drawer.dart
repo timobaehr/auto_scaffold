@@ -88,14 +88,17 @@ class _CollapsibleDrawerState extends State<CollapsibleDrawer> {
             leading: widget.leading,
             title: widget.title,
           ),
-        if (!_collapsed) Container(color: Theme.of(context).colorScheme.background, height: 1),
+        if (!_collapsed) Container(color: Theme.of(context).drawerTheme.backgroundColor, height: 1),
         ..._items(_collapsed)
       ],
     );
 
     final drawer = Drawer(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero, // keine Abrundung
+      ),
       child: Container(
-        color: widget.backgroundColor ?? Theme.of(context).colorScheme.background,
+        color: widget.backgroundColor ?? Theme.of(context).drawerTheme.backgroundColor,
         child: Column(
           children: [
             Expanded(child: list),

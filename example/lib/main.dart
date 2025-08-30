@@ -1,8 +1,7 @@
 import 'package:auto_scaffold/auto_scaffold.dart';
 import 'package:flutter/material.dart';
 
-void main() =>
-    runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Example()));
+void main() => runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Example()));
 
 class Example extends StatefulWidget {
   @override
@@ -21,13 +20,13 @@ class _ExampleState extends State<Example> {
       appBar: AppBar(
         title: Text(_appBarTitle),
       ),
-      tabBarDisabled: false,
+      tabBarDisabled: true,
       drawerLeading: Icon(Icons.favorite, color: Colors.red),
       drawerTitle: Text(
         'Your App',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
-      backgroundColor: Colors.blue.shade50,
+      //backgroundColor: Colors.blue.shade50,
       selectedNavigationItemColor: Colors.red,
       unselectedNavigationItemColor: Colors.black54,
       selectedDrawerNavigationItemBackground: Colors.black12,
@@ -63,8 +62,7 @@ class _ExampleState extends State<Example> {
                         'Automatically switch between collapsible app drawer (position left) and bottom navigation bar depending on screen width'),
                     _item(
                         'Disable bottom navigation tab bar on small devices and then use regular drawer instead (without collapse button)'),
-                    _item(
-                        'Show tooltips if the drawer is collapsed on mouse hover on Desktop'),
+                    _item('Show tooltips if the drawer is collapsed on mouse hover on Desktop'),
                     _item('Hide drawer leading if the drawer is collapsed'),
                   ],
                 ),
@@ -74,8 +72,7 @@ class _ExampleState extends State<Example> {
           name: 'Settings',
           icon: Icon(Icons.settings),
           route: '/settings',
-          body: Text('Settings goes here',
-              style: Theme.of(context).textTheme.headlineSmall),
+          body: Text('Settings goes here', style: Theme.of(context).textTheme.headlineSmall),
         )
       ],
     );

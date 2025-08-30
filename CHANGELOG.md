@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.3] - 30.08.2025
+
+* Remove radius topRight and bottomRight from drawer
+
 ## [1.1.3] - 14.01.2024
 
 * Show tooltip again on hover
